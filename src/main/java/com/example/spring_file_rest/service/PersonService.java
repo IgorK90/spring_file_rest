@@ -12,4 +12,9 @@ public interface PersonService {
     Optional<Person> findById(Long id);
     List<Person> findAll();
 
+    void mockFunc();
+
+    void save(List<Person> personList);
+
+    Person findByIin(Long iin);
 }
