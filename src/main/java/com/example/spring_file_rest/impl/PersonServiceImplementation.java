@@ -3,6 +3,9 @@ package com.example.spring_file_rest.impl;
 import com.example.spring_file_rest.entity.Person;
 import com.example.spring_file_rest.repository.PersonRepository;
 import com.example.spring_file_rest.service.PersonService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,8 +23,11 @@ public class PersonServiceImplementation implements PersonService
     {
         return repository.findById(id);
     }
+
     @Override
-    public List<Person> findAll(){return repository.findAll();}
+    public Page<Person> findAll(int page, int size, Pageable pageable) {
+        return repository.findAll(PageRequest.of(page, size));
+    }
 
     @Override
     public void mockFunc() {

@@ -1,5 +1,7 @@
 package com.example.spring_file_rest.entity;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,7 +15,8 @@ public class Person {
     private String name;
     @Column(name = "surname")
     private String surname;
-    @Column(name = "iin")
+    @Column(name = "iin", unique = true)
+    @NotNull
     private long iin;
 
     public Person() {
