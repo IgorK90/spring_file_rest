@@ -4,7 +4,7 @@ public class PersonDTO {
     private String name;
     private  long id;
     private long iin;
-    private String surname;
+    //private String surname;
 
     public PersonDTO() {
     }
@@ -14,14 +14,14 @@ public class PersonDTO {
         return "PersonDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
+                //", surname='" + surname + '\'' +
                 ", iin=" + iin +
                 '}';
     }
 
     public PersonDTO(String name, String surname, long iin) {
         this.name = name;
-        this.surname = surname;
+        //this.surname = surname;
         this.iin = iin;
     }
 
@@ -41,13 +41,13 @@ public class PersonDTO {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
+//    public String getSurname() {
+//        return surname;
+//    }
+//
+//    public void setSurname(String surname) {
+//        this.surname = surname;
+//    }
 
     public long getIin() {
         return iin;

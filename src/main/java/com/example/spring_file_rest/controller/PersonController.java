@@ -1,7 +1,9 @@
 package com.example.spring_file_rest.controller;
 
+import com.example.spring_file_rest.dto.PersonDTO;
 import com.example.spring_file_rest.entity.Person;
 import com.example.spring_file_rest.service.PersonService;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +11,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -50,8 +54,20 @@ public class PersonController {
             while (line != null) {
                 System.out.println(line);
                 String[] data = line.split("/");
-                Person person = new Person( data[0], data[1],parseLong(data[2]));
-                personList.add(person);
+                String name = data[0];
+                String surname = data[1];
+                Long iin = null;
+                try
+                {
+                    iin = parseLong(data[2]);
+                    Person person = new Person(name, surname, iin);
+                    personList.add(person);
+                }
+                catch (Exception e)
+                {
+                    System.out.println("iin is not parseable");
+                }
+
                 line = reader.readLine();
             }
             for (Person p: personList)
@@ -71,12 +87,14 @@ public class PersonController {
     }
 
     @GetMapping("/getbyiin/{iin}")
-    public ResponseEntity<Person> findOneByIin( @PathVariable Long iin)
+    public ResponseEntity<PersonDTO> findOneByIin( @PathVariable Long iin)
     {
         Person optionalPerson  = service.findByIin(iin);
-        System.out.println(optionalPerson);
+        ModelMapper modelMapper = new ModelMapper();
+        PersonDTO personDTO = modelMapper.map(optionalPerson, PersonDTO.class);
+        System.out.println(personDTO);
 
         //return ResponseEntity.ok(service.getByIin(iin));
-        return ResponseEntity.ok(optionalPerson);
+        return ResponseEntity.ok(personDTO);
     }
 }

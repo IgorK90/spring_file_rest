@@ -24,7 +24,9 @@ public class Test1 {
         Person person = new Person("Alex","Smirnov",1234);
         PersonDTO personDTO = modelMapper.map(person, PersonDTO.class);
 
-        assert (person.getName() == personDTO.getName());
+        assert (person.getName().equals( personDTO.getName()));
+//        assert (person.getSurname() == personDTO.getSurname());
+        assert (person.getIin() == personDTO.getIin());
 
 
 
