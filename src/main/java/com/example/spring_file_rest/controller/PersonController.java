@@ -56,7 +56,7 @@ public class PersonController {
                 String[] data = line.split("/");
                 String name = data[0];
                 String surname = data[1];
-                Long iin = null;
+                Long iin;
                 try
                 {
                     iin = parseLong(data[2]);
